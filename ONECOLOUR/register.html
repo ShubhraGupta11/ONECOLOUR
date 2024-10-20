@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ONE COLOUR</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        body {
+            margin: 0; /* Remove default body margin */
+        }
+        .header_section {
+            position: fixed; /* Fix position to stay at the top */
+            top: 0; /* Align to the top */
+            left: 0;
+            width: 100%; /* Full width */
+            z-index: 1000; /* Ensure it's above other elements */
+            background-color: #f5ddb6; /* Match the navbar background */
+        }
+        .register-form {
+            max-width: 400px;
+            margin: 100px auto; /* Adjust this margin for the top */
+            padding: 50px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 80px; /* Adjusted to avoid overlap with header */
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #f8f9fa;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        .toggle_icon {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header Section Start -->
+    <div class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-light bg-light justify-content-between">
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="about.html">About</a>
+                    <a href="client.html">Client</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
+                <a class="logo" href="index.html">ONE COLOUR</a>
+                <form class="form-inline">
+                    <div class="login_text">
+                        <ul>
+                            <li><a href="#"><img src="images/user-icon.png"></a></li>
+                            <li><a href="#"><img src="images/bag-icon.png"></a></li>
+                            <li><a href="#"><img src="images/search-icon.png"></a></li>
+                        </ul>
+                    </div>
+                </form>
+            </nav>
+        </div>
+    </div>
+    <!-- Header Section End -->
+
+    <div class="container">
+        <div class="register-form">
+            <h2 class="text-center mb-4">Create an Account</h2>
+            <form id="registerForm" action="#" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                    <div id="usernameError" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div id="emailError" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <div id="passwordError" class="error-message"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+            <p class="text-center mt-3">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            // Clear previous error messages
+            document.getElementById('usernameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+
+            // Username validation
+            const username = document.getElementById('username').value;
+            if (!username) {
+                document.getElementById('usernameError').textContent = 'Username is required.';
+                isValid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            if (!email) {
+                document.getElementById('emailError').textContent = 'Email address is required.';
+                isValid = false;
+            } else if (!/\S+@\S+\.\S+/.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Password is required.';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long.';
+                isValid = false;
+            } else if (/\s/.test(password)) {
+                document.getElementById('passwordError').textContent = 'Password cannot contain spaces.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // If all validations pass, you can submit the form
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>
